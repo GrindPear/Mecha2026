@@ -6,7 +6,7 @@
 
 #define ENCODERA 17	// Hall Sensor A
 #define ENCODERB 27	// Hall Sensor B
-#define ENC2REDGEAR 804
+#define ENC2REDGEAR 216
 
 int encA;
 int encB;
