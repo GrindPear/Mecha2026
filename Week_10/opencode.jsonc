@@ -1,0 +1,44 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+
+  // ── 메카트로닉스 수업용 OpenCode 설정 ──
+  // 넣을 위치: ~/.config/opencode/opencode.jsonc
+  // 같은 폴더에 bizrouter.key 파일을 두고, 팀 키(sk-br-v1-...) 한 줄만 넣으세요.
+
+  "provider": {
+    "bizrouter": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "BizRouter",
+      "options": {
+        "baseURL": "https://api.bizrouter.ai/v1",
+        "apiKey": "{file:./bizrouter.key}"
+      },
+      "models": {
+        // 입력 2,848원 · 출력 14,240원 (100만 토큰당)
+        "openai/gpt-6.1-sol": {
+          "name": "GPT-6.1 Sol",
+          "limit": { "context": 1050000, "output": 128000 }
+        },
+        // 입력 1,424원 · 출력 7,120원 (100만 토큰당, Sol의 절반)
+        "openai/gpt-6.1-terra": {
+          "name": "GPT-6.1 Terra",
+          "limit": { "context": 922000, "output": 128000 }
+        }
+      }
+    }
+  },
+
+  // 처음 열 때 고르는 모델
+  "model": "bizrouter/openai/gpt-6.1-terra",
+
+  "enabled_providers": ["bizrouter"],
+  "policies": [
+    { "action": "provider.use", "resource": "*", "effect": "deny" },
+    { "action": "provider.use", "resource": "bizrouter", "effect": "allow" },
+    { "action": "integration.connect", "resource": "*", "effect": "deny" }
+  ],
+
+  "share": "disabled",
+  "update": "disable"
+
+}
